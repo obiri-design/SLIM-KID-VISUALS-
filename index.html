@@ -1,0 +1,576 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>SlimeKidd001 Creative Hub | Bringing Ideas To Life</title>
+  <!-- Google Fonts & Font Awesome Icons -->
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  
+  <style>
+    /* CSS Variables & Global Reset */
+    :root {
+      --primary: #7000ff;
+      --primary-glow: #00f0ff;
+      --bg-dark: #0a0a0f;
+      --card-bg: #141421;
+      --text-light: #f4f4f9;
+      --text-muted: #a0a0b8;
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: 'Poppins', sans-serif;
+    }
+
+    body {
+      background-color: var(--bg-dark);
+      color: var(--text-light);
+      overflow-x: hidden;
+      line-height: 1.6;
+    }
+
+    /* Intro Screen Overlay */
+    #intro-overlay {
+      position: fixed;
+      inset: 0;
+      z-index: 9999;
+      background: linear-gradient(135deg, rgba(10,10,15,0.95), rgba(112,0,255,0.8)), 
+                  url('https://images.unsplash.com/photo-1626785774573-4b799315345d?auto=format&fit=crop&w=1920&q=80') center/cover no-repeat;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      backdrop-filter: blur(8px);
+      transition: opacity 0.6s ease, visibility 0.6s ease;
+    }
+
+    .intro-card {
+      background: rgba(20, 20, 33, 0.85);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      padding: 2.5rem;
+      border-radius: 20px;
+      max-width: 420px;
+      width: 90%;
+      text-align: center;
+      box-shadow: 0 20px 40px rgba(0, 0, 0, 0.6);
+    }
+
+    .intro-card h2 {
+      font-size: 1.8rem;
+      margin-bottom: 0.5rem;
+      background: linear-gradient(45deg, #fff, var(--primary-glow));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+
+    .intro-card p {
+      font-size: 0.9rem;
+      color: var(--text-muted);
+      margin-bottom: 1.5rem;
+    }
+
+    .intro-form input {
+      width: 100%;
+      padding: 12px 16px;
+      margin-bottom: 1rem;
+      border-radius: 8px;
+      border: 1px solid rgba(255, 255, 255, 0.15);
+      background: rgba(255, 255, 255, 0.05);
+      color: #fff;
+      font-size: 1rem;
+      outline: none;
+    }
+
+    .intro-form input:focus {
+      border-color: var(--primary-glow);
+    }
+
+    .btn-submit {
+      width: 100%;
+      padding: 12px;
+      border: none;
+      border-radius: 8px;
+      background: linear-gradient(90deg, var(--primary), var(--primary-glow));
+      color: #fff;
+      font-weight: 700;
+      font-size: 1rem;
+      cursor: pointer;
+      transition: transform 0.2s ease, box-shadow 0.2s ease;
+    }
+
+    .btn-submit:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 8px 20px rgba(0, 240, 255, 0.4);
+    }
+
+    /* Main Website Navigation */
+    nav {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 1.5rem 5%;
+      background: rgba(10, 10, 15, 0.9);
+      position: sticky;
+      top: 0;
+      z-index: 1000;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+    }
+
+    .logo {
+      font-size: 1.5rem;
+      font-weight: 800;
+      letter-spacing: 1px;
+    }
+
+    .logo span {
+      color: var(--primary-glow);
+    }
+
+    .nav-links {
+      display: flex;
+      gap: 2rem;
+      list-style: none;
+    }
+
+    .nav-links a {
+      color: var(--text-light);
+      text-decoration: none;
+      font-weight: 500;
+      transition: color 0.3s;
+    }
+
+    .nav-links a:hover {
+      color: var(--primary-glow);
+    }
+
+    /* Hero Section */
+    .hero {
+      min-height: 85vh;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      text-align: center;
+      padding: 0 5%;
+      background: radial-gradient(circle at center, rgba(112, 0, 255, 0.2) 0%, rgba(10, 10, 15, 1) 70%),
+                  url('https://images.unsplash.com/photo-1550745165-9bc0b252726f?auto=format&fit=crop&w=1920&q=80') center/cover;
+    }
+
+    .welcome-badge {
+      background: rgba(0, 240, 255, 0.1);
+      border: 1px solid var(--primary-glow);
+      color: var(--primary-glow);
+      padding: 6px 16px;
+      border-radius: 20px;
+      font-size: 0.9rem;
+      margin-bottom: 1.5rem;
+    }
+
+    .hero h1 {
+      font-size: 3.2rem;
+      max-width: 900px;
+      margin-bottom: 1rem;
+      font-weight: 800;
+    }
+
+    .hero p {
+      font-size: 1.2rem;
+      color: var(--text-muted);
+      max-width: 650px;
+      margin-bottom: 2rem;
+    }
+
+    .btn-cta {
+      display: inline-block;
+      padding: 14px 32px;
+      background: linear-gradient(90deg, var(--primary), var(--primary-glow));
+      color: #fff;
+      text-decoration: none;
+      font-weight: 700;
+      border-radius: 30px;
+      box-shadow: 0 10px 25px rgba(112, 0, 255, 0.4);
+      transition: transform 0.3s ease;
+    }
+
+    .btn-cta:hover {
+      transform: scale(1.05);
+    }
+
+    /* Layout Sections */
+    section {
+      padding: 5rem 5%;
+    }
+
+    .section-title {
+      text-align: center;
+      font-size: 2.2rem;
+      margin-bottom: 3rem;
+    }
+
+    .section-title span {
+      color: var(--primary-glow);
+    }
+
+    /* About Section */
+    .about-container {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 3rem;
+      align-items: center;
+    }
+
+    .about-img img {
+      width: 100%;
+      border-radius: 15px;
+      box-shadow: 0 15px 30px rgba(0, 0, 0, 0.5);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+    }
+
+    /* Services Section */
+    .services-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 2rem;
+    }
+
+    .service-card {
+      background: var(--card-bg);
+      padding: 2rem;
+      border-radius: 15px;
+      border: 1px solid rgba(255, 255, 255, 0.05);
+      text-align: center;
+      transition: transform 0.3s ease, border-color 0.3s ease;
+    }
+
+    .service-card:hover {
+      transform: translateY(-8px);
+      border-color: var(--primary-glow);
+    }
+
+    .service-card i {
+      font-size: 2.5rem;
+      color: var(--primary-glow);
+      margin-bottom: 1rem;
+    }
+
+    /* Portfolio Showcase */
+    .portfolio-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 1.5rem;
+    }
+
+    .portfolio-item {
+      position: relative;
+      border-radius: 12px;
+      overflow: hidden;
+      height: 250px;
+    }
+
+    .portfolio-item img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transition: transform 0.5s ease;
+    }
+
+    .portfolio-overlay {
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(to top, rgba(10, 10, 15, 0.9), transparent);
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-end;
+      padding: 1.5rem;
+      opacity: 0;
+      transition: opacity 0.3s ease;
+    }
+
+    .portfolio-item:hover img {
+      transform: scale(1.1);
+    }
+
+    .portfolio-item:hover .portfolio-overlay {
+      opacity: 1;
+    }
+
+    /* Contact Section */
+    .contact-container {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 3rem;
+      background: var(--card-bg);
+      padding: 3rem;
+      border-radius: 20px;
+      border: 1px solid rgba(255, 255, 255, 0.05);
+    }
+
+    .contact-info div {
+      margin-bottom: 1.5rem;
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+    }
+
+    .contact-info i {
+      font-size: 1.2rem;
+      color: var(--primary-glow);
+    }
+
+    .contact-info a {
+      color: var(--text-light);
+      text-decoration: none;
+    }
+
+    .social-links {
+      display: flex;
+      gap: 1rem;
+      margin-top: 2rem;
+    }
+
+    .social-links a {
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      background: rgba(255, 255, 255, 0.05);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      color: var(--text-light);
+      text-decoration: none;
+      transition: background 0.3s;
+    }
+
+    .social-links a:hover {
+      background: var(--primary);
+    }
+
+    /* Floating WhatsApp Button */
+    .whatsapp-float {
+      position: fixed;
+      bottom: 25px;
+      right: 25px;
+      background: #25d366;
+      color: white;
+      width: 60px;
+      height: 60px;
+      border-radius: 50%;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      font-size: 2rem;
+      box-shadow: 0 5px 20px rgba(37, 211, 102, 0.4);
+      z-index: 1000;
+      text-decoration: none;
+      transition: transform 0.3s;
+    }
+
+    .whatsapp-float:hover {
+      transform: scale(1.1);
+    }
+
+    /* Mobile Responsiveness */
+    @media (max-width: 768px) {
+      .about-container, .contact-container {
+        grid-template-columns: 1fr;
+      }
+      .nav-links {
+        display: none;
+      }
+      .hero h1 {
+        font-size: 2.2rem;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Intro Screen Overlay -->
+  <div id="intro-overlay">
+    <div class="intro-card">
+      <h2>Welcome Friend!</h2>
+      <p>Please enter your details to experience SlimeKidd001 Creative Hub.</p>
+      <form class="intro-form" id="welcome-form">
+        <input type="text" id="visitor-name" placeholder="Your Full Name" required>
+        <input type="text" id="visitor-location" placeholder="Where are you from?" required>
+        <button type="submit" class="btn-submit">Enter Creative Hub</button>
+      </form>
+    </div>
+  </div>
+
+  <!-- Header / Navigation -->
+  <nav>
+    <div class="logo">SlimeKidd001 <span>Hub</span></div>
+    <ul class="nav-links">
+      <li><a href="#home">Home</a></li>
+      <li><a href="#about">About</a></li>
+      <li><a href="#services">Services</a></li>
+      <li><a href="#portfolio">Portfolio</a></li>
+      <li><a href="#contact">Contact</a></li>
+    </ul>
+  </nav>
+
+  <!-- Hero Section -->
+  <section class="hero" id="home">
+    <div class="welcome-badge" id="greeting-badge">Welcome Guest</div>
+    <h1>Bringing Your Ideas To Life Through Creative Design</h1>
+    <p>Premium Graphic Design, Professional Photography, Videography & Digital Branding Solutions for Businesses, Churches & Individuals.</p>
+    <a href="https://wa.me/233532916582?text=Hello%20SlimeKidd001,%20I'm%20interested%20in%20your%20creative%20services!" class="btn-cta" target="_blank">
+      <i class="fab fontawesome-free-brands fa-whatsapp"></i> Chat On WhatsApp
+    </a>
+  </section>
+
+  <!-- About Section -->
+  <section id="about">
+    <h2 class="section-title">About <span>Us</span></h2>
+    <div class="about-container">
+      <div class="about-text">
+        <h3>We Don't Just Design — We Craft Experiences</h3>
+        <p><strong>SlimeKidd001 Creative Hub</strong> is a premier creative brand dedicated to delivering top-tier visual communication. We specialize in transforming complex concepts into clean, catchy, and professional media assets.</p>
+        <br>
+        <p>Whether you're an individual building a personal brand, a business looking to scale, or a church aiming to engage your audience, we deliver visuals that command attention and drive results.</p>
+      </div>
+      <div class="about-img">
+        <img src="https://images.unsplash.com/photo-1542744094-3a31216994ef?auto=format&fit=crop&w=800&q=80" alt="Creative Design Workflow">
+      </div>
+    </div>
+  </section>
+
+  <!-- Services Section -->
+  <section id="services">
+    <h2 class="section-title">Our <span>Services</span></h2>
+    <div class="services-grid">
+      <div class="service-card">
+        <i class="fas fa-paint-brush"></i>
+        <h3>Graphic Design</h3>
+        <p>Custom graphics crafted with precision and modern visual principles.</p>
+      </div>
+      <div class="service-card">
+        <i class="fas fa-vector-square"></i>
+        <h3>Logo & Branding</h3>
+        <p>Memorable brand identities, business logos, and style guidelines.</p>
+      </div>
+      <div class="service-card">
+        <i class="fas fa-bullhorn"></i>
+        <h3>Flyers & Banners</h3>
+        <p>Eye-catching print & digital flyers, posters, and billboard banners.</p>
+      </div>
+      <div class="service-card">
+        <i class="fas fa-camera"></i>
+        <h3>Photography</h3>
+        <p>High-definition studio, event, and product photography sessions.</p>
+      </div>
+      <div class="service-card">
+        <i class="fas fa-video"></i>
+        <h3>Videography</h3>
+        <p>Professional video capture and high-end video editing for all media platforms.</p>
+      </div>
+      <div class="service-card">
+        <i class="fas fa-hashtag"></i>
+        <h3>Social Media Assets</h3>
+        <p>Tailor-made social graphics built to boost engagement across all channels.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Portfolio Section -->
+  <section id="portfolio">
+    <h2 class="section-title">Creative <span>Showcase</span></h2>
+    <div class="portfolio-grid">
+      <div class="portfolio-item">
+        <img src="https://images.unsplash.com/photo-1600132806370-bf17e65e942f?auto=format&fit=crop&w=800&q=80" alt="Brand Identity Design">
+        <div class="portfolio-overlay">
+          <h3>Brand Identity</h3>
+          <p>Logo & Business Cards Design</p>
+        </div>
+      </div>
+      <div class="portfolio-item">
+        <img src="https://images.unsplash.com/photo-1516035069371-29a1b244cc32?auto=format&fit=crop&w=800&q=80" alt="Photography Studio">
+        <div class="portfolio-overlay">
+          <h3>Pro Photography</h3>
+          <p>Studio & Event Coverage</p>
+        </div>
+      </div>
+      <div class="portfolio-item">
+        <img src="https://images.unsplash.com/photo-1574717024653-61fd2cf4d44d?auto=format&fit=crop&w=800&q=80" alt="Video Editing Suite">
+        <div class="portfolio-overlay">
+          <h3>Video Production</h3>
+          <p>Cinematic Editing & Reels</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Contact Section -->
+  <section id="contact">
+    <h2 class="section-title">Get In <span>Touch</span></h2>
+    <div class="contact-container">
+      <div class="contact-info">
+        <h3>Let's Collaborate!</h3>
+        <p style="color: var(--text-muted); margin-bottom: 1.5rem;">Ready to elevate your visual identity? Reach out directly via phone, email, or social media.</p>
+        
+        <div>
+          <i class="fas fa-phone"></i>
+          <span>Call: +233 20 930 3508</span>
+        </div>
+        <div>
+          <i class="fab fa-whatsapp"></i>
+          <span>WhatsApp: +233 53 291 6582</span>
+        </div>
+        <div>
+          <i class="fas fa-envelope"></i>
+          <a href="mailto:boadudaniel0001@gmail.com">boadudaniel0001@gmail.com</a>
+        </div>
+        <div>
+          <i class="fab fa-linkedin"></i>
+          <span>Slimekidd0001 / Boadu Daniel</span>
+        </div>
+
+        <div class="social-links">
+          <a href="#"><i class="fab fa-instagram"></i></a>
+          <a href="#"><i class="fab fa-facebook-f"></i></a>
+          <a href="#"><i class="fab fa-tiktok"></i></a>
+          <a href="#"><i class="fab fa-snapchat-ghost"></i></a>
+          <a href="#"><i class="fab fa-x-twitter"></i></a>
+        </div>
+      </div>
+
+      <div style="display: flex; flex-direction: column; justify-content: center; align-items: center; text-align: center;">
+        <h3 style="margin-bottom: 1rem;">Direct Project Booking</h3>
+        <p style="color: var(--text-muted); margin-bottom: 1.5rem;">Click below to launch an instant message on WhatsApp with Boadu Daniel.</p>
+        <a href="https://wa.me/233532916582?text=Hello%20SlimeKidd001,%20I%20want%20to%20discuss%20a%20project!" class="btn-cta" target="_blank" style="width: 100%;">
+          Start WhatsApp Conversation
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- Floating WhatsApp Button -->
+  <a href="https://wa.me/233532916582?text=Hello%20SlimeKidd001,%20I'm%20visiting%20your%20website!" class="whatsapp-float" target="_blank">
+    <i class="fab fa-whatsapp"></i>
+  </a>
+
+  <!-- JavaScript Script -->
+  <script>
+    document.getElementById('welcome-form').addEventListener('submit', function(e) {
+      e.preventDefault();
+      
+      const name = document.getElementById('visitor-name').value;
+      const location = document.getElementById('visitor-location').value;
+      
+      if (name && location) {
+        // Update greeting badge on the main site
+        document.getElementById('greeting-badge').innerText = `Welcome, ${name} from ${location}!`;
+        
+        // Hide intro overlay with animation
+        const overlay = document.getElementById('intro-overlay');
+        overlay.style.opacity = '0';
+        overlay.style.visibility = 'hidden';
+      }
+    });
+  </script>
+</body>
+</html>
